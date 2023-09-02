@@ -212,15 +212,18 @@ float rango_intercuartil(float datos[], int n){
  * @param n Tamaño del arreglo o cantidad de datos del programa
  */
 void todo(float datos[], int n){
-    printf("Media: %.4f\n", media(datos, n));
-    printf("Mediana: %.4f\n", mediana(datos, n));
-    printf("Moda: %.4f\n", moda(datos, n));
-    printf("Varianza: %.4f\n", varianza(datos, n));
-    printf("Desviacion estandar: %.4f\n", des_estandar(datos, n));
-    printf("Cuartil 1: %.4f\n", cuartil_1(datos, n));
-    printf("Cuartil 3: %.4f\n", cuartil_3(datos, n));
-    printf("Rango intercuartil: %.4f\n", rango_intercuartil(datos, n));
-    printf("Rango: %.4f\n", rango(datos, n));
+    printf(" MEDIDAS DE TENDENCIA CENTRAL Y DE DISPERSION\n");
+    printf("|--------------------------------------------|\n");
+    printf("| Media               |%22.4f|\n", media(datos, n));
+    printf("| Mediana             |%22.4f|\n", mediana(datos, n));
+    printf("| Moda                |%22.4f|\n", moda(datos, n));
+    printf("| Varianza            |%22.4f|\n", varianza(datos, n));
+    printf("| Desviacion estandar |%22.4f|\n", des_estandar(datos, n));
+    printf("| Cuartil 1           |%22.4f|\n", cuartil_1(datos, n));
+    printf("| Cuartil 3           |%22.4f|\n", cuartil_3(datos, n));
+    printf("| Rango intercuartil  |%22.4f|\n", rango_intercuartil(datos, n));
+    printf("| Rango               |%22.4f|\n", rango(datos, n));
+    printf("----------------------------------------------\n");
 }
 
 /**

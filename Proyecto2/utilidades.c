@@ -93,31 +93,36 @@ float mediana(float datos[], int n){
 
 /**
  * @brief Calcula la moda del conjunto de datos almacenados en el arreglo dado.
+ * Se considera un caso de estimación unimodal discreta. (1 moda)
  * 
  * @param datos Arreglo de datos del programa. El arreglo debe estar ordenado
  * @param n Tamaño del arreglo o cantidad de datos del programa
- * @return float Moda
+ * @return float Moda si se encuentra una moda. -1 si no existe alguna.
  */
 float moda(float datos[], int n){
-    float actual = datos[0];
-    float moda = actual;
-    int cont = 1;
+    float moda = datos[0];
     int max = 1;
 
-    for (int i = 1; i < n; i++) {
-        if (datos[i] == actual){
-            cont++;
-        } else if(cont > max){
-            max = cont;
-            moda = actual;
+    for (int i = 0; i < n; i++) {
+        float actual = datos[i];
+        int cont = 0;
+
+        for (int j = 0; j < n; j++) {
+            if (datos[j] == actual) {
+                cont++;
+            }
         }
-        actual = datos[i];
-        cont=1;
+
+        if (cont > max) {
+            moda = actual;
+            max = cont;
+        }
     }
-    if (cont > max){
-        moda = actual;
+    if (max == 1) {
+        return -1;
+    } else {
+        return moda;
     }
-    return moda;
 }
 
 /**
@@ -159,6 +164,9 @@ float des_estandar(float datos[], int n){
 
 /**
  * @brief Calcula Q1 del conjunto de datos almacenados en el arreglo dado.
+ * Calcula la posicion de Q1 usando la formula Q1=(n+1)*0.25
+ * Si la posicion de Q1 no es entera se toma 
+ * Q1=(Dato en la posicion entera inferior + Dato en la posicion entera superior)/2
  * 
  * @param datos Arreglo de datos del programa. El arreglo debe estar ordenado.
  * @param n Tamaño del arreglo o cantidad de datos del programa
@@ -166,13 +174,15 @@ float des_estandar(float datos[], int n){
  */
 float cuartil_1(float datos[], int n){
     float pos = (n+1)*0.25;
-    int parte_entera = (int)pos;
-    float porcentaje = pos - parte_entera;
-    return datos[parte_entera-1] + porcentaje*(datos[parte_entera]-datos[parte_entera-1]);
+    int pos_entera = (int)pos;
+    return (datos[pos_entera-1]+datos[pos_entera])/2;
 }
 
 /**
  * @brief Calcula Q3 del conjunto de datos almacenados en el arreglo dado.
+ * Calcula la posicion de Q3 usando la formula Q1=(n+1)*0.75
+ * Si la posicion de Q3 no es entera se toma 
+ * Q3=(Dato en la posicion entera inferior + Dato en la posicion entera superior)/2
  * 
  * @param datos Arreglo de datos del programa. El arreglo debe estar ordenado.
  * @param n Tamaño del arreglo o cantidad de datos del programa
@@ -180,9 +190,8 @@ float cuartil_1(float datos[], int n){
  */
 float cuartil_3(float datos[], int n){
     float pos = (n+1)*0.75;
-    int parte_entera = (int)pos;
-    float porcentaje = pos - parte_entera;
-    return datos[parte_entera-1] + porcentaje*(datos[parte_entera]-datos[parte_entera-1]);
+    int pos_entera = (int)pos;
+    return (datos[pos_entera-1]+datos[pos_entera])/2;
 }
 
 /**
@@ -203,9 +212,23 @@ float rango_intercuartil(float datos[], int n){
  * @param n Tamaño del arreglo o cantidad de datos del programa
  */
 void todo(float datos[], int n){
-
+    printf("Media: %.4f\n", media(datos, n));
+    printf("Mediana: %.4f\n", mediana(datos, n));
+    printf("Moda: %.4f\n", moda(datos, n));
+    printf("Varianza: %.4f\n", varianza(datos, n));
+    printf("Desviacion estandar: %.4f\n", des_estandar(datos, n));
+    printf("Cuartil 1: %.4f\n", cuartil_1(datos, n));
+    printf("Cuartil 3: %.4f\n", cuartil_3(datos, n));
+    printf("Rango intercuartil: %.4f\n", rango_intercuartil(datos, n));
+    printf("Rango: %.4f\n", rango(datos, n));
 }
 
+/**
+ * @brief Algoritmo de ordenamiento que servira como auxiliar para otros calculos
+ * 
+ * @param datos Arreglo de datos del programa
+ * @param n Tamaño del arreglo o cantidad de datos del programa
+ */
 void ordenamiento(float datos[], int n){
     for (int i = 0; i < n - 1; i++){
         for (int j = i + 1; j < n; j++){

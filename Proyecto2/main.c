@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "utilidades.h"
-#define TAM 10
+#define TAM 100
 
 int main(int argc, char const *argv[]) {
     char opcion[20];
@@ -46,11 +46,15 @@ int main(int argc, char const *argv[]) {
             printf("La mediana del arreglo es: %.4f\n", mediana(datos, n));
         } else if (strcmp(opcion, "moda") == 0){
             ordenamiento(datos, n);
-            printf("La moda del arreglo es: %.4f\n", moda(datos, n));
+            if (moda(datos, n) == -1) {
+                printf("No se encontro una moda en el conjunto de datos");
+            } else {
+                printf("La moda del arreglo es: %.4f\n", moda(datos, n));
+            }
         } else if (strcmp(opcion, "varianza") == 0){
             printf("La varianza del arreglo es: %.4f\n", varianza(datos, n));
         } else if(strcmp(opcion, "desvest") == 0){
-            printf("La desviacion estandar del arreglo es: %.4f\n", desvest(datos, n));
+            printf("La desviacion estandar del arreglo es: %.4f\n", des_estandar(datos, n));
         } else if(strcmp(opcion, "cuartil_1") == 0){
             ordenamiento(datos, n);
             printf("El primer cuartil del arreglo es: %.4f\n", cuartil_1(datos, n));
@@ -59,11 +63,12 @@ int main(int argc, char const *argv[]) {
             printf("El tercer cuartil del arreglo es: %.4f\n", cuartil_3(datos, n));
         } else if(strcmp(opcion, "ric") == 0){
             ordenamiento(datos, n);
-            printf("El rango intercuartilico del arreglo es: %.4f\n", ric(datos, n));
+            printf("El rango intercuartilico del arreglo es: %.4f\n", rango_intercuartil(datos, n));
         } else if(strcmp(opcion, "rango") == 0){
             ordenamiento(datos, n);
             printf("El rango del arreglo es: %.4f\n", rango(datos, n));
         } else if(strcmp(opcion, "todos") == 0){
+            ordenamiento(datos, n);
             todo(datos, n);
         } else {
             printf("Opcion invalida\n");
